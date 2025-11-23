@@ -27,7 +27,7 @@ source "${ROOT}"/globals
 
 function get_whonix_info {
   curl "${WHONIX_URL}" |
-    sed -n '/.*href="https:\/\/download.whonix.org\/libvirt\/.*.libvirt.xz.*/{s/.*href="\(.*\.libvirt.xz\)".*/\1/p}' |
+    sed -n "/.*href=\"\/download\/libvirt\/.*${WHONIX_TYPE}.*\.libvirt\.xz\" class=\"download.*/{s/.*href=\"\(.*\.libvirt\.xz\)\".*/\1/p}" |
     head -n 1
 }
 
@@ -50,10 +50,11 @@ function check_all_files {
   done
 }
 
+WHONIX_TYPE=LXQt # Or CLI
 WHONIX_URL="https://www.whonix.org/wiki/KVM"
-DOWNLOAD_URL="$(get_whonix_info)"
-WHONIX_VERSION="$(echo "${DOWNLOAD_URL}" | cut -d "/" -f 5)"
-WHONIX_ARCHIVE="$(echo "${DOWNLOAD_URL}" | cut -d "/" -f 6)"
+DOWNLOAD_URL="https://www.whonix.org/$(get_whonix_info)"
+WHONIX_VERSION="$(echo "${DOWNLOAD_URL}" | cut -d "/" -f 7)"
+WHONIX_ARCHIVE="$(echo "${DOWNLOAD_URL}" | cut -d "/" -f 8)"
 
 LIBVIRT_DIR=${HOME}/.local/libvirt/images
 
