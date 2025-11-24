@@ -1,4 +1,4 @@
-# Whonix Scripts
+# Whonix KVM Scripts
 
 Scripts to download, install, and uninstall Whonix (KVM).
 
